@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		xmlns:s="library://ns.adobe.com/flex/spark" title="comfortvilleLoginView">
+	<s:layout>
+		<s:VerticalLayout/>
+	</s:layout>
+	
+	<fx:Script>
+		<![CDATA[
+			import mx.rpc.events.FaultEvent;
+			import mx.rpc.events.ResultEvent;
+			
+			import model.Credentials;
+			
+			import services.authenticate.Authenticate;
+			
+			import tools.Settings;
+			
+			private var authenticate:Authenticate=Settings.authenticate;
+			
+			private function getCredentials(): Credentials {
+				return new Credentials(loginInput.text, passwordInput.text, rememberCheck.selected);
+			}
+			
+			protected function loginButton_clickHandler(event:MouseEvent):void
+			{
+				loginResponder.token = authenticate.authenticate(getCredentials().toJson());
+			}
+			
+			protected function loginResponder_resultHandler(event:ResultEvent):void
+			{
+				var res:Object = {};
+				if (event.result!=null)
+					res = JSON.parse(event.result as String);
+				if (res.hasOwnProperty("id_token")) {
+					Settings.token = res.id_token;
+					navigator.pushView(comfortvilleAccountView);
+				}
+				else
+					Settings.token = "";
+				
+			}
+			
+			protected function loginResponder_faultHandler(event:FaultEvent):void
+			{
+				trace(event.fault.faultString+event.fault.faultDetail);	
+				Settings.token = "";
+			}
+			
+		]]>
+	</fx:Script>
+	
+	<fx:Declarations>
+		<s:CallResponder id="loginResponder" result="loginResponder_resultHandler(event)" 
+						 fault="loginResponder_faultHandler(event)" />
+	</fx:Declarations>
+	<s:TextInput id="loginInput"/>
+	<s:TextInput id="passwordInput"/>
+	<s:CheckBox id="rememberCheck"/>
+	<s:Button id="loginButton" click="loginButton_clickHandler(event)"/>
+</s:View>
