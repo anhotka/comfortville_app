@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:View xmlns:fx="http://ns.adobe.com/mxml/2009" 
 		xmlns:s="library://ns.adobe.com/flex/spark" title="comfortvilleLoginView">
-	<s:layout>
-		<s:VerticalLayout/>
-	</s:layout>
+
 	
+	<s:navigationContent/>
+	
+		<s:layout>
+			<s:VerticalLayout/>
+		</s:layout>	
+		
 	<fx:Script>
 		<![CDATA[
 			import mx.rpc.events.FaultEvent;
@@ -24,7 +28,9 @@
 			
 			protected function loginButton_clickHandler(event:MouseEvent):void
 			{
-				loginResponder.token = authenticate.authenticate(getCredentials().toJson());
+				// Вставить навигатор, закомментить логин респондер токен
+				// loginResponder.token = authenticate.authenticate(getCredentials().toJson());
+				navigator.pushView(comfortvilleAccountView);
 			}
 			
 			protected function loginResponder_resultHandler(event:ResultEvent):void
@@ -49,13 +55,56 @@
 			
 		]]>
 	</fx:Script>
-	
+		
+		
+
 	<fx:Declarations>
 		<s:CallResponder id="loginResponder" result="loginResponder_resultHandler(event)" 
 						 fault="loginResponder_faultHandler(event)" />
 	</fx:Declarations>
-	<s:TextInput id="loginInput"/>
-	<s:TextInput id="passwordInput"/>
-	<s:CheckBox id="rememberCheck"/>
-	<s:Button id="loginButton" click="loginButton_clickHandler(event)"/>
+
+	
+	<!--<s:Group width="100%">
+			<s:HGroup width="90%" height="128" verticalAlign="middle" horizontalCenter="0">
+		<s:Group width="100%">
+			<s:Image horizontalAlign="left" width="100%" height="100%" source="C:/Program Files/Adobe/Adobe Flash Builder 4.7/assets/menu-icon-300px.png" />
+		</s:Group>
+		<s:Group width="100%">
+			<s:Image  source="C:/Program Files/Adobe/Adobe Flash Builder 4.7/assets/logo1.png"/>
+		</s:Group>
+	</s:HGroup>
+	</s:Group>-->
+	
+	<s:Group width="100%">
+		<s:Label text="Войдите" top="40" width="90%" fontStyle="normal" color="#006699" fontSize="42" fontWeight="normal" fontFamily="Segoe UI, sans-serif"> 
+		
+		</s:Label> 
+	</s:Group>
+		<s:Group width="100%">
+		<s:TextInput horizontalCenter="0" top="20"   alpha="0.3" width="90%" fontStyle="normal"  fontSize="42" fontWeight="normal" fontFamily="Segoe UI, sans-serif" id="loginInput"/>
+	</s:Group>
+	<s:Group width="100%">
+		<s:TextInput horizontalCenter="0" top="10"  alpha="0.3" width="90%" fontStyle="normal"  fontSize="42" fontWeight="normal" fontFamily="Segoe UI, sans-serif" id="passwordInput"/>
+	</s:Group>
+		<s:CheckBox    id="rememberCheck"/>
+<s:Group width="100%">
+	<s:Button horizontalCenter="0" chromeColor="#006699" label="Войти" color="white" fontStyle="normal"  fontSize="42" fontWeight="bold" fontFamily="Segoe UI"  id="loginButton" click="loginButton_clickHandler(event)"/>
+</s:Group>
+	
+	<fx:Declarations>
+	<s:ViewMenuLayout requestedMaxColumnCount="1" 
+			/>
+		</fx:Declarations>
+	<s:viewMenuItems>
+				
+				
+			
+			<s:ViewMenuItem label="Add"/> 
+			<s:ViewMenuItem label="Cancel"/> 
+			<s:ViewMenuItem label="Delete"/> 
+			<s:ViewMenuItem label="Edit"/> 
+			
+			</s:viewMenuItems>
+	
+	
 </s:View>

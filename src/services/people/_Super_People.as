@@ -6,7 +6,6 @@ package services.people
 {
 import com.adobe.fiber.core.model_internal;
 import com.adobe.fiber.services.wrapper.HTTPServiceWrapper;
-
 import mx.rpc.AbstractOperation;
 import mx.rpc.AsyncToken;
 import mx.rpc.http.HTTPMultiService;
@@ -19,12 +18,12 @@ import tools.Settings;
 internal class _Super_People extends com.adobe.fiber.services.wrapper.HTTPServiceWrapper
 {
 
-	
 	public function updateCredentials():void 
-		{
-				var operation:mx.rpc.http.Operation = _serviceControl.getOperation("getAll") as mx.rpc.http.Operation;
-				operation.headers["Authorization"] = "Bearer " + Settings.token;
-		}
+	{
+		var operation:mx.rpc.http.Operation = _serviceControl.getOperation("getAll") as mx.rpc.http.Operation;
+		operation.headers["Authorization"] = "Bearer " + Settings.token;
+	}
+	
     // Constructor
     public function _Super_People()
     {
@@ -45,6 +44,7 @@ internal class _Super_People extends com.adobe.fiber.services.wrapper.HTTPServic
 
          preInitializeService();
          model_internal::initialize();
+		 
     }
     
     //init initialization routine here, child class to override

@@ -121,6 +121,8 @@
         <softKeyboardBehavior>none</softKeyboardBehavior>
     </initialWindow>
 
+
+
 	<!-- We recommend omitting the supportedProfiles element, -->
 	<!-- which in turn permits your application to be deployed to all -->
 	<!-- devices supported by AIR. If you wish to restrict deployment -->
